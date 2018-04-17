@@ -1,0 +1,41 @@
+{% extends 'todoapp/base.html' %}
+{% block body %}
+{% if task_list %}
+<div class="container">
+  <h2>Todays List</h2>
+  <p>Lets get things done</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Priority</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in task_list %}
+        <tr class="active">
+          <td>
+            <a href="{% url 'todoapp:detail' task.id %}">{{task.task_name}}</a>
+          </td>
+          <td>
+            {% if task.task_priority == "High" %}
+              <span class="alert alert-danger text-center" style="padding: 0"><b>{{task.task_priority}}</b></span>
+            {% elif task.task_priority == "Medium" %}
+              <span class="alert alert-warning text-center" style="padding: 0"><b>{{task.task_priority}}</b></span>
+            {% elif task.task_priority == "Low"%}
+              <span class="alert alert-info text-center" style="padding: 0"><b>{{task.task_priority}}</b></span>
+            {% endif %}
+          </td>
+          <td>
+            <a href="#" class="btn btn-danger">Delete</a>
+            <a href="#" class="btn btn-info">Edit</a>
+          </td>  
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+{% endif %}
+{% endblock %}
